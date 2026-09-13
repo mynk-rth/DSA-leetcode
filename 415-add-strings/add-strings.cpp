@@ -1,36 +1,18 @@
 class Solution {
 public:
     string addStrings(string num1, string num2) {
-       
-       reverse(num1.begin(),num1.end());
-       reverse(num2.begin(),num2.end());
-
-       string ans;
-
-       int max_len = max(num1.size(),num2.size());
-       num1.resize(max_len, '0');
-       num2.resize(max_len, '0');
-       int carry = 0;
-
-
-       for ( int i=0; i<max_len; i++ ){
-        int digit = (num1[i] - '0') + (num2[i] - '0') + carry;
-
-        if (digit>=10){
-            digit = digit-10;
-            carry = 1;
-        }else{
-            carry = 0;
+        int i = num1.size() - 1, j = num2.size() - 1, carry = 0;
+        string result;
+        
+        while (i >= 0 || j >= 0 || carry) {
+            int sum = carry;
+            if (i >= 0) sum += num1[i--] - '0';
+            if (j >= 0) sum += num2[j--] - '0';
+            result.push_back(sum % 10 + '0');
+            carry = sum / 10;
         }
-
-        ans.push_back(digit + '0');
-       }
-       if (carry){
-          ans.push_back(1 + '0');
-       }
-
-       reverse(ans.begin(),ans.end());
-       return ans;
-
+        
+        reverse(result.begin(), result.end());
+        return result;
     }
 };
