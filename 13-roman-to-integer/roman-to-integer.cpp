@@ -14,30 +14,26 @@ public:
             {"L", 50},
             {"XC",90},
             {"C", 100},
-            {"CD",400},
+            {"CD",400},       
             {"D", 500},
             {"CM",900},
-            {"M", 1000}
-        };
+            {"M", 1000}                          
+        };                                        
     
-        for ( int len=0; len<s.size(); len++){
-            string ch = s.substr(len, 2);
+        for ( int len=0; len<s.size(); len++){         
+            string ch = s.substr(len, 2);        
             if ( roman.count(ch) ){
                 ans += roman[ch];
                 len++;
                 }
             else{
-                ch = s.substr(len, 1);
+                ch = s.substr(len, 1);           
                 if ( roman.count(ch) ){
-                    ans += roman[ch];
+                    ans += roman[ch];      
                 }
                 }
             }
         
-        return ans;
-
-
-
-            
+        return ans;            
     }
 };
