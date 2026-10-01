@@ -1,37 +1,45 @@
 class Solution {
 public:
     int findUnsortedSubarray(vector<int>& nums) {
-        int left = -1;           // starting index
-        int right = -1;          // update last index  
 
-        queue<int> q1;
-        for(int x : nums){
-            q1.push(x);
-        }
-            
-        sort(nums.begin(),nums.end());
-        queue<int> q2;
-        for(int x : nums){
-            q2.push(x);
-        }
+        int n = nums.size();
 
-        for( int i=0; i<nums.size(); i++){
-            if( q1.front() != q2.front()){
-                if(left == -1){
-                    left = i;
-                }
-                right = i;
+        deque<int> dq;
+
+        int left = n;
+        int right = 0;
+
+        // Left boundary
+        for (int i = 0; i < n; i++) {
+
+            while (!dq.empty() && nums[dq.back()] > nums[i]) {
+
+                left = min(left, dq.back());
+
+                dq.pop_back();
             }
-            q1.pop();                    
-            q2.pop();
+
+            dq.push_back(i);
         }
 
-        if(left == -1){
+        dq.clear();
+
+        // Right boundary
+        for (int i = n - 1; i >= 0; i--) {
+
+            while (!dq.empty() && nums[dq.back()] < nums[i]) {
+
+                right = max(right, dq.back());
+
+                dq.pop_back();
+            }
+
+            dq.push_back(i);
+        }
+
+        if (right == 0)
             return 0;
-        }
-        else {
-            int ans = right - left + 1;
-            return ans;
-        }
+
+        return right - left + 1;
     }
 };
