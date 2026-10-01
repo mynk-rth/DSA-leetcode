@@ -1,45 +1,43 @@
 class Solution {
 public:
     int findUnsortedSubarray(vector<int>& nums) {
+        queue<int> q;
+        int startIndex = -1;
+        int endIndex = -1;
 
-        int n = nums.size();
+        for (int i = 0; i < nums.size(); i++) {
+            if (!q.empty()) {
+                int prev = q.front();
 
-        deque<int> dq;
+                if (nums[i] < prev) {
+                    if (startIndex == -1)
+                        startIndex = i - 1;
+                    endIndex = i;
+                }
 
-        int left = n;
-        int right = 0;
-
-        // Left boundary
-        for (int i = 0; i < n; i++) {
-
-            while (!dq.empty() && nums[dq.back()] > nums[i]) {
-
-                left = min(left, dq.back());
-
-                dq.pop_back();
+                q.pop();
             }
 
-            dq.push_back(i);
+            q.push(nums[i]);
         }
 
-        dq.clear();
-
-        // Right boundary
-        for (int i = n - 1; i >= 0; i--) {
-
-            while (!dq.empty() && nums[dq.back()] < nums[i]) {
-
-                right = max(right, dq.back());
-
-                dq.pop_back();
-            }
-
-            dq.push_back(i);
-        }
-
-        if (right == 0)
+        if (startIndex == -1)
             return 0;
 
-        return right - left + 1;
+        int Min = nums[startIndex];
+        int Max = nums[startIndex];
+
+        for (int i = startIndex; i <= endIndex; i++) {
+            Min = min(Min, nums[i]);
+            Max = max(Max, nums[i]);
+        }
+
+        while (startIndex > 0 && nums[startIndex - 1] > Min)
+            startIndex--;
+
+        while (endIndex < nums.size() - 1 && nums[endIndex + 1] < Max)
+            endIndex++;
+
+        return endIndex - startIndex + 1;
     }
 };
