@@ -21,7 +21,8 @@ public:
 class Solution {
 public:
     int maxDepth(Node* root) {
-        vector<vector<int>> ans;
+
+        int level = 0;
         queue<Node*> q;
 
         if(root==nullptr){
@@ -32,19 +33,17 @@ public:
 
         while(!q.empty()){
             int size = q.size();
-            vector<int> level;
 
             for(int i=0; i<size; i++){
                 auto root = q.front();
                 q.pop();
-                level.push_back(root->val);
 
                 for (auto child : root->children){
                     q.push(child);
                 }
             }
-            ans.push_back(level);
+            level++;
         }
-        return ans.size();
+        return level;
     }
 };
