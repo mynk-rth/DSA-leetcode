@@ -22,28 +22,16 @@ class Solution {
 public:
     int maxDepth(Node* root) {
 
-        int level = 0;
-        queue<Node*> q;
-
-        if(root==nullptr){
+        if (root == nullptr)
             return 0;
+
+        int Max = 0;
+
+        for (Node* child : root->children) {
+            int depth = maxDepth(child);
+            Max = max(Max, depth);
         }
-        else
-           q.push(root);
 
-        while(!q.empty()){
-            int size = q.size();
-
-            for(int i=0; i<size; i++){
-                auto root = q.front();
-                q.pop();
-
-                for (auto child : root->children){
-                    q.push(child);
-                }
-            }
-            level++;
-        }
-        return level;
+        return Max + 1;
     }
 };
