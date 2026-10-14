@@ -13,28 +13,33 @@ class Solution {
 public:
     int rangeSumBST(TreeNode* root, int low, int high) {
 
-        int sum=0;
+        int sum = 0;
+        queue<TreeNode*> q;               // element ka address store karega     
 
-        if( root == nullptr ){
+        if(root==nullptr){
             return sum;
         }
-        
-        auto current_node= root;
-        stack<TreeNode*> st;      
-        
-        while (current_node != nullptr || !st.empty()){
+        else
+           q.push(root);
 
-            while(current_node != nullptr){
-                st.push(current_node);
-                current_node = current_node->left;
+        while(!q.empty()){
+            int size = q.size();
+
+            for(int i=0; i<size; i++){
+                TreeNode* node = q.front();
+                q.pop();
+
+                if (low <= node->val && node->val <= high){
+                    sum += node->val;
+                }
+                
+                if(node->left != nullptr ){
+                    q.push(node->left);
+                }
+                if(node->right != nullptr ){
+                    q.push(node->right);
+                }
             }
-            current_node = st.top();
-            st.pop();
-            if(low <= current_node->val && current_node->val <= high){
-                sum += current_node->val;
-            }
-            current_node = current_node->right;
-        
         }
         return sum;
         
