@@ -13,28 +13,29 @@ class Solution {
 public:
     int minDiffInBST(TreeNode* root) {
         
-        int minDist = INT_MAX;
-        int prev = -1;
+        vector<int> inorder;
 
-        stack<TreeNode*> st;
-        auto current_node = root;
-
+        auto current_node= root;  
+        stack<TreeNode*> st;      
+        
         while (current_node != nullptr || !st.empty()){
 
-            while (current_node != nullptr) {
-            st.push(current_node);
-            current_node = current_node->left;
+            while(current_node != nullptr){
+                st.push(current_node);            
+                current_node = current_node->left;
             }
-            
             current_node = st.top();
             st.pop();
-            
-            if (prev != -1) {
-                minDist = min(minDist, current_node->val - prev);
-            }
-            prev = current_node->val;
+            inorder.push_back(current_node->val);
             current_node = current_node->right;
+        
         }
+
+        int minDist = INT_MAX;
+        for (int i=1 ; i<inorder.size(); i++){
+            minDist = min(minDist, inorder[i]-inorder[i-1]);
+        }
+
         return minDist;
     }
 };
