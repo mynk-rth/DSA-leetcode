@@ -26,8 +26,8 @@ public:
             auto current = st.top();    // 1,1 
             st.pop();
 
-            TreeNode* node = current.first;   // 1
-            string path = current.second;     // 1
+            auto node = current.first;   // 1
+            auto path = current.second;     // 1
 
             if (node->left == nullptr && node->right == nullptr) {
                 ans.push_back(path);
