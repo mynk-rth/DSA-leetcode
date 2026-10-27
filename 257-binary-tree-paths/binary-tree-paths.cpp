@@ -31,7 +31,6 @@ public:
 
             if (node->left == nullptr && node->right == nullptr) {
                 ans.push_back(path);
-                continue;
             }
 
             if (node->right != nullptr) {
