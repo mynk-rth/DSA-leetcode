@@ -9,36 +9,17 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        vector<vector<int>> ans;
-        queue<TreeNode*> q;
-
-        if(root==nullptr){
+        if (root == nullptr) {
             return 0;
         }
-        else
-           q.push(root);
 
-        while(!q.empty()){
-            int size = q.size();
-            vector<int> level;
+        int left_depth = maxDepth(root->left);
+        int right_depth = maxDepth(root->right);
 
-            for(int i=0; i<size; i++){
-                TreeNode* node = q.front();
-                q.pop();
-                level.push_back(node->val);
-
-                if(node->left != nullptr ){
-                    q.push(node->left);
-                }
-                if(node->right != nullptr ){
-                    q.push(node->right);
-                }
-            }
-            ans.push_back(level);
-        }
-        return ans.size();
+        return 1 + max(left_depth, right_depth);
     }
 };
