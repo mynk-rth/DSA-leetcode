@@ -18,15 +18,15 @@ public:
 
     bool isSameTree(TreeNode* p, TreeNode* q) {
 
-        vector<string> ans1 = preorder(p);
-        vector<string> ans2 = preorder(q);
+        vector<string> ans1 = preorder(p);  // 1 2 null null 3
+        vector<string> ans2 = preorder(q);  // 1 2 null null 3
 
         return ans1 == ans2;
     }
 
     vector<string> preorder(TreeNode* root) {
         vector<string> ans;
-        stack<TreeNode*> st;
+        stack<TreeNode*> st; // 3 
         st.push(root);
 
         while (!st.empty()) {
@@ -44,7 +44,7 @@ public:
             st.push(current->left);
         }
 
-        return ans;
+        return ans;    // 1 2  // 1 null 2
     }
 };
 
