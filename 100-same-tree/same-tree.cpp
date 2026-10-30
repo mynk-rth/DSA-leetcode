@@ -10,40 +10,44 @@
  * };
  */
 
+
+
+
 class Solution {
 public:
+
     bool isSameTree(TreeNode* p, TreeNode* q) {
 
-        stack<pair<TreeNode*, TreeNode*>> st;
-        st.push({p, q});
+        vector<string> ans1 = preorder(p);
+        vector<string> ans2 = preorder(q);
+
+        return ans1 == ans2;
+    }
+
+    vector<string> preorder(TreeNode* root) {
+        vector<string> ans;
+        stack<TreeNode*> st;
+        st.push(root);
 
         while (!st.empty()) {
 
-            auto [node1, node2] = st.top();
+            auto current = st.top();
             st.pop();
 
-            // Both nodes are nullptr
-            if (node1 == nullptr && node2 == nullptr) {
+            if (current == nullptr) {
+                ans.push_back("NULL");
                 continue;
             }
 
-            // Only one node is nullptr
-            if (node1 == nullptr || node2 == nullptr) {
-                return false;
-            }
-
-            // Values are different
-            if (node1->val != node2->val) {
-                return false;
-            }
-
-            // Compare left children
-            st.push({node1->left, node2->left});
-
-            // Compare right children
-            st.push({node1->right, node2->right});
+            ans.push_back(to_string(current->val));
+            st.push(current->right);
+            st.push(current->left);
         }
 
-        return true;
+        return ans;
     }
 };
+
+
+
+
