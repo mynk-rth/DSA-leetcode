@@ -20,7 +20,7 @@ public:
             auto [original_node, clone_node] = q.front();
             q.pop();
 
-            if (original_node == target)
+            if (original_node->val == target->val)
                 return clone_node;
 
             if (original_node->left != nullptr)
