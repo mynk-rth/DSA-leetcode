@@ -9,18 +9,23 @@ public:
 
         ListNode* curr = head;
 
-        int length = 1;
+        int length = 0;
 
         // Step 1: Find length and last node
-        while (curr->next != NULL) {
+        while (curr != NULL) {
             curr = curr->next;
             length++;
+            if(curr->next == NULL){
+                length++;
+                break;
+            }
+               
         }
 
         // Step 2: Reduce rotations
         k = k % length;
 
-    
+
         // Step 3: Make circular Linked List
         curr->next = head;
 
