@@ -6,15 +6,16 @@ public:
         ListNode* dummy = new ListNode(0);
         dummy->next = head;
 
-        ListNode* curr = dummy;
+        ListNode* curr = dummy; // 2
 
-        while (curr->next && curr->next->next) {
+
+        while (curr->next && curr->next->next) {   // 3 3
 
             if (curr->next->val == curr->next->next->val) {
 
-                int duplicate = curr->next->val;
+                int duplicate = curr->next->val;  // 3
 
-                while (curr->next && curr->next->val == duplicate) {
+                while (curr->next && curr->next->val == duplicate) { // 
                     curr->next = curr->next->next;
                 }
 
