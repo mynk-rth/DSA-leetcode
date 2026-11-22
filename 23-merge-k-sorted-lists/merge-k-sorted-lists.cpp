@@ -8,6 +8,7 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
@@ -16,9 +17,8 @@ public:
         ListNode* dummy = new ListNode(0);
         ListNode* tail = dummy;
 
-        for(int i = 0; i < lists.size(); i++) {
+        for(ListNode* curr : lists) {
 
-            ListNode* curr = lists[i];
             while(curr != NULL) {
                 ans.push_back(curr->val);
                 curr = curr->next;
@@ -26,9 +26,9 @@ public:
         }
 
         sort(ans.begin(), ans.end());
-        for(int i = 0; i < ans.size(); i++) {
 
-            int digit = ans[i];
+        for(int digit : ans) {
+
             ListNode* newNode = new ListNode(digit);
             tail->next = newNode;
             tail = tail->next;
