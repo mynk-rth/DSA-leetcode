@@ -6,18 +6,16 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
 class Solution {
 public:
     void deleteNode(ListNode* node) {
-        ListNode* prev=nullptr;
-        while(node != NULL && node ->next != NULL){
-            node -> val = node -> next -> val;
-            prev= node;//1 
-            node= node -> next;
-            
-        }
-        prev -> next = NULL;
-        delete (node);
+
+        // Copy next node's value
+        node->val = node->next->val;
+
+        // Skip the next node
+        node->next = node->next->next;
     }
 };
 
